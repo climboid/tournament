@@ -71,8 +71,8 @@ def playerStandings():
 
 
     c.execute("""SELECT id, name, 
-                (SELECT count(*) FROM matches WHERE players.id = matches.player1) AS wins,
-                (SELECT count(*) FROM matches WHERE players.id = matches.player1 OR players.id = matches.player2) AS matches
+                (SELECT count(*) FROM matches WHERE players.id = matches.winner) AS wins,
+                (SELECT count(*) FROM matches WHERE players.id = matches.winner OR players.id = matches.looser) AS matches
                 FROM players
                 ORDER BY wins DESC;""")
     rows = c.fetchall()
@@ -89,7 +89,7 @@ def reportMatch(winner, loser):
     """
     db = connect()
     c = db.cursor()
-    c.execute("INSERT INTO matches (player1, player2, winner, looser) VALUES (%s,%s,%s,%s)",(winner,loser,winner,loser))
+    c.execute("INSERT INTO matches (winner, looser) VALUES (%s,%s)",(winner,loser,))
     db.commit()
     db.close()
  
@@ -112,25 +112,18 @@ def swissPairings():
 
     db = connect()
     c = db.cursor()
-    c.execute("""SELECT players.id, players.name
-                 FROM players, matches
-                 WHERE players.id = matches.winner
-                 ORDER BY matches.winner DESC""")
-    winners = c.fetchall()
-    
-    c.execute("""SELECT players.id, players.name
-                 FROM players, matches
-                 WHERE players.id = matches.looser
-                 ORDER BY matches.looser""")
-    losers = c.fetchall()
-    
+    c.execute(""" SELECT players.id, players.name
+                  FROM players, matches
+                  WHERE players.id = matches.winner OR players.id = matches.looser
+                  ORDER BY matches.winner DESC""")
+    rows = c.fetchall()
     pairings = []
     i = 0
-    while i < len(winners):
-        pairings.append((winners[i][0],winners[i][1],winners[i+1][0],winners[i+1][1]))
-        pairings.append((losers[i][0], losers[i][1], losers[i+1][0], losers[i+1][1]))
-        i=i+2
+    while i < len(rows)-2:
+        pairings.append((rows[i][0],rows[i][1],rows[i+2][0],rows[i+2][1]))
+        i=i+1
     db.close()
+
     return pairings
 
 
