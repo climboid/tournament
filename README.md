@@ -20,12 +20,9 @@ You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_install
 4. Log into vagrant ``` vagrant ssh```
 5. CD to the corresponding directory ``` cd /vagrant/tournament ```
 6. Prep commandline to insert queries ``` psql```
-7. If a database with the same name exists, drop it ```DROP DATABASE IF EXISTS tournament;```
-8. Create a database ``` CREATE DATABASE tournament; ```
-9. Choose that database ``` \c tournament ```
-10. Insert the tables ``` \i tournament.sql```
-11. Exit psql ``` \q ```
-12. Run the tests ``` python tournament_test.py```
+7. Insert the tables ``` \i tournament.sql```
+8. Exit psql ``` \q ```
+9. Run the tests ``` python tournament_test.py```
 
 You should see the following output <br>
 ```
