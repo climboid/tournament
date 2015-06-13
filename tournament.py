@@ -125,7 +125,7 @@ def swissPairings():
     while i < len(standings) and len(standings) > 2:
         arr.append((standings[i][0],standings[i][1],standings[i+1][0],standings[i+1][1]))
         i=i+2
-
+    
     return arr
 
 
