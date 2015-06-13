@@ -1,3 +1,5 @@
+
+
 # Fullstack Project 2 - Tournament
 
 ## Files
@@ -21,7 +23,8 @@ You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_install
 7. Create a database ``` create database tournament; ```
 8. Choose that database ``` \c tournament ```
 9. Insert the tables ``` \i tournament.sql```
-10. Run the tests ``` python tournament_test.py```
+10. Exit psql ``` \q ```
+11. Run the tests ``` python tournament_test.py```
 
 You should see the following output <br>
 ```
