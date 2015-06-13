@@ -6,6 +6,13 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
+
+-- Droping the database if it already exists, creating it and then selelcting it
+DROP DATABASE IF EXISTS tournament;
+CREATE DATABASE tournament;
+\c tournament;
+
+
 -- Cretes a table of players which will hold all of the players of the tournament
 -- Each player has an id and a name
 CREATE TABLE players(
@@ -17,7 +24,7 @@ CREATE TABLE players(
 -- a winner and a user which will contain id corresponding to that person
 -- relating back to the players table
 CREATE TABLE matches (
-	id SERIAL, 
+	id SERIAL PRIMARY KEY, 
 	winner INTEGER REFERENCES players(id), 
 	loser INTEGER REFERENCES players(id)
 );
